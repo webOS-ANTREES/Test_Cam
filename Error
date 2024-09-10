@@ -5,3 +5,5 @@
 [ WARN:0@1.061] global cap_v4l.cpp:982 open VIDEOIO(V4L2:/dev/video0): can't open camera by index
 [ERROR:0@1.083] global obsensor_uvc_stream_channel.cpp:156 getStreamChannelGroup Camera index out of range
 Error
+
+sudo apt-get install gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav
