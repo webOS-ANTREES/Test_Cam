@@ -7,3 +7,4 @@
 Error
 
 sudo apt-get install gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav
+echo url="https://www.duckdns.org/update?domains=ksnnwtest&token=e51db076-835a-475e-b091-22a0bf6d22fd&ip=" | curl -k -o ~/duckdns/duck.log -K -
