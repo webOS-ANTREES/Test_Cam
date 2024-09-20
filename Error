@@ -1,1 +1,8 @@
-sudo apt-get install gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav
+kkymin@raspberrypi:~ $  cd /home/kkymin ; /usr/bin/env /bin/python /home/kkymin/.vscode/extensions/ms-python.debugpy-2024.10.0-linux-armhf/bundled/libs/debugpy/adapter/../../debugpy/launcher 44301 -- /home/kkymin/Test_Cam/Test_Cam_v2.py 
+[ WARN:0@0.627] global cap_gstreamer.cpp:2784 handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module v4l2src0 reported: Failed to allocate required memory.
+[ WARN:0@0.638] global cap_gstreamer.cpp:1679 open OpenCV | GStreamer warning: unable to start pipeline
+[ WARN:0@0.638] global cap_gstreamer.cpp:1164 isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created
+[ WARN:0@1.060] global cap_v4l.cpp:919 createBuffers VIDEOIO(V4L2:/dev/video0): failed mmap(614400): errno=19 (No such device)
+[ WARN:0@1.061] global cap_v4l.cpp:982 open VIDEOIO(V4L2:/dev/video0): can't open camera by index
+[ERROR:0@1.085] global obsensor_uvc_stream_channel.cpp:156 getStreamChannelGroup Camera index out of range
+카메라를 열 수 없습니다.
