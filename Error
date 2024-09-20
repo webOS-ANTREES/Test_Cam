@@ -1,8 +1,18 @@
-kkymin@raspberrypi:~ $  cd /home/kkymin ; /usr/bin/env /bin/python /home/kkymin/.vscode/extensions/ms-python.debugpy-2024.10.0-linux-armhf/bundled/libs/debugpy/adapter/../../debugpy/launcher 44301 -- /home/kkymin/Test_Cam/Test_Cam_v2.py 
-[ WARN:0@0.627] global cap_gstreamer.cpp:2784 handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module v4l2src0 reported: Failed to allocate required memory.
-[ WARN:0@0.638] global cap_gstreamer.cpp:1679 open OpenCV | GStreamer warning: unable to start pipeline
-[ WARN:0@0.638] global cap_gstreamer.cpp:1164 isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created
-[ WARN:0@1.060] global cap_v4l.cpp:919 createBuffers VIDEOIO(V4L2:/dev/video0): failed mmap(614400): errno=19 (No such device)
-[ WARN:0@1.061] global cap_v4l.cpp:982 open VIDEOIO(V4L2:/dev/video0): can't open camera by index
-[ERROR:0@1.085] global obsensor_uvc_stream_channel.cpp:156 getStreamChannelGroup Camera index out of range
-카메라를 열 수 없습니다.
+kymin@raspberrypi:~ $ dmesg | grep -i video
+[    0.000000] Kernel command line: coherent_pool=1M 8250.nr_uarts=0 snd_bcm2835.enable_headphones=0 snd_bcm2835.enable_headphones=1 snd_bcm2835.enable_hdmi=1 clk_ignore_unused video=HDMI-A-1:1920x1080M@60 smsc95xx.macaddr=E4:5F:01:75:A7:CC vc_mem.mem_base=0x3ec00000 vc_mem.mem_size=0x40000000  console=ttyS0,115200 console=tty1 root=PARTUUID=fe98d8eb-02 rootfstype=ext4 fsck.repair=yes rootwait quiet splash plymouth.ignore-serial-consoles cfg80211.ieee80211_regdom=GB
+[    4.171367] videodev: Linux video capture interface: v2.00
+[    4.210057] bcm2835_vc_sm_cma_probe: Videocore shared memory driver
+[    5.992857] bcm2835-isp bcm2835-isp: Device node output[0] registered as /dev/video13
+[    5.993393] bcm2835-isp bcm2835-isp: Device node capture[0] registered as /dev/video14
+[    5.993856] bcm2835-isp bcm2835-isp: Device node capture[1] registered as /dev/video15
+[    6.060735] bcm2835-isp bcm2835-isp: Device node stats[2] registered as /dev/video16
+[    6.110031] bcm2835-codec bcm2835-codec: Device registered as /dev/video10
+[    6.252062] rpivid feb10000.codec: Device registered as /dev/video19
+[    6.252794] bcm2835-isp bcm2835-isp: Device node output[0] registered as /dev/video20
+[    6.253520] bcm2835-codec bcm2835-codec: Device registered as /dev/video11
+[    6.253837] bcm2835-isp bcm2835-isp: Device node capture[0] registered as /dev/video21
+[    6.255438] bcm2835-isp bcm2835-isp: Device node capture[1] registered as /dev/video22
+[    6.256969] bcm2835-isp bcm2835-isp: Device node stats[2] registered as /dev/video23
+[    6.263816] bcm2835-codec bcm2835-codec: Device registered as /dev/video12
+[    6.305273] bcm2835-codec bcm2835-codec: Device registered as /dev/video18
+[    6.310082] bcm2835-codec bcm2835-codec: Device registered as /dev/video31
