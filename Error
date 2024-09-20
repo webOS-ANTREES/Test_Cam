@@ -1,10 +1,1 @@
-[ WARN:0@0.625] global cap_gstreamer.cpp:2784 handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module v4l2src0 reported: Failed to allocate required memory.
-[ WARN:0@0.637] global cap_gstreamer.cpp:1679 open OpenCV | GStreamer warning: unable to start pipeline
-[ WARN:0@0.637] global cap_gstreamer.cpp:1164 isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created
-[ WARN:0@1.060] global cap_v4l.cpp:919 createBuffers VIDEOIO(V4L2:/dev/video0): failed mmap(614400): errno=19 (No such device)
-[ WARN:0@1.061] global cap_v4l.cpp:982 open VIDEOIO(V4L2:/dev/video0): can't open camera by index
-[ERROR:0@1.083] global obsensor_uvc_stream_channel.cpp:156 getStreamChannelGroup Camera index out of range
-Error
-
 sudo apt-get install gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav
-echo url="https://www.duckdns.org/update?domains=ksnnwtest&token=e51db076-835a-475e-b091-22a0bf6d22fd&ip=" | curl -k -o ~/duckdns/duck.log -K -
