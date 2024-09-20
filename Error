@@ -1,8 +1,29 @@
-kkymin@raspberrypi:~ $  cd /home/kkymin ; /usr/bin/env /bin/python /home/kkymin/.vscode/extensions/ms-python.debugpy-2024.10.0-linux-armhf/bundled/libs/debugpy/adapter/../../debugpy/launcher 56481 -- /home/kkymin/Test_Cam/Test_Cam.py 
-[ WARN:0@0.743] global cap_gstreamer.cpp:1728 open OpenCV | GStreamer warning: Cannot query video position: status=0, value=-1, duration=-1
- * Serving Flask app "Test_Cam" (lazy loading)
- * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
-   Use a production WSGI server instead.
- * Debug mode: off
- * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+from flask import Flask, Response
+from flask_cors import CORS
+import cv2
+
+app = Flask(__name__)
+CORS(app)
+
+camera = cv2.VideoCapture(0) # use 0 for web camera
+
+def gen_frames(): # generate frame by frame from camera
+        while True:
+                success, frame = camera.read() # read the camera frame
+                if (not success):
+                        break
+                else:
+                        ret, buffer = cv2.imencode('.jpg', frame)
+                        frame = buffer.tobytes()
+                        yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+
+@app.route('/video_feed')
+def video_feed():
+        """Video streaming route. Put this in the src attribute of an img tag."""
+        return Response(gen_frames(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+if (__name__ == '__main__'):
+        app.run(host='0.0.0.0', port=8080)
