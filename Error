@@ -1,29 +1,32 @@
-from flask import Flask, Response
-from flask_cors import CORS
-import cv2
-
-app = Flask(__name__)
-CORS(app)
-
-camera = cv2.VideoCapture(0) # use 0 for web camera
-
-def gen_frames(): # generate frame by frame from camera
-        while True:
-                success, frame = camera.read() # read the camera frame
-                if (not success):
-                        break
-                else:
-                        ret, buffer = cv2.imencode('.jpg', frame)
-                        frame = buffer.tobytes()
-                        yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-
-@app.route('/video_feed')
-def video_feed():
-        """Video streaming route. Put this in the src attribute of an img tag."""
-        return Response(gen_frames(),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
-
-
-if (__name__ == '__main__'):
-        app.run(host='0.0.0.0', port=8080)
+kkymin@raspberrypi:~ $ /bin/python /home/kkymin/Test_Cam/Test_Cam.py
+[ WARN:0@0.722] global cap_gstreamer.cpp:2784 handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module v4l2src0 reported: Failed to allocate required memory.
+[ WARN:0@0.738] global cap_gstreamer.cpp:1679 open OpenCV | GStreamer warning: unable to start pipeline
+[ WARN:0@0.738] global cap_gstreamer.cpp:1164 isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created
+[ WARN:0@1.168] global cap_v4l.cpp:919 createBuffers VIDEOIO(V4L2:/dev/video0): failed mmap(614400): errno=19 (No such device)
+[ WARN:0@1.169] global cap_v4l.cpp:982 open VIDEOIO(V4L2:/dev/video0): can't open camera by index
+[ERROR:0@1.198] global obsensor_uvc_stream_channel.cpp:156 getStreamChannelGroup Camera index out of range
+ * Serving Flask app "Test_Cam" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+Traceback (most recent call last):
+  File "/home/kkymin/Test_Cam/Test_Cam.py", line 33, in <module>
+    app.run(host='0.0.0.0', port=8080)
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 990, in run
+    run_simple(host, port, self, **options)
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 1052, in run_simple
+    inner()
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 996, in inner
+    srv = make_server(
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 847, in make_server
+    return ThreadedWSGIServer(
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 740, in __init__
+    HTTPServer.__init__(self, server_address, handler)
+  File "/usr/lib/python3.9/socketserver.py", line 452, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.9/http/server.py", line 138, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.9/socketserver.py", line 466, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
