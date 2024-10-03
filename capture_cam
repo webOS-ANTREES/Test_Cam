@@ -46,7 +46,8 @@ mqtt_client.subscribe(topic)
 mqtt_client.loop_start()
 
 def gen_frames():
-    global capture_forward_150
+    global capture_forward_150, capture_forward_400,capture_reverse_150,capture_reverse_400
+
     if not os.path.exists('/home/kkymin/Test_Cam/captures'):
                     os.makedirs('/home/kkymin/Test_Cam/captures')
     while True:
@@ -76,10 +77,10 @@ def gen_frames():
                 cv2.imwrite(filename, frame)  # 프레임을 파일로 저장
                 print(f"Frame captured and saved as {filename}")
                 capture_reverse_150 = False  # 플래그 초기화
-                
+
             if capture_reverse_400:  # 'stop' 명령을 받으면 프레임을 캡처
                 timestamp = time.strftime("%Y%m%d-%H%M%S")
-                filename = f"/home/kkymin/Test_Cam/captures/400_reverse{timestamp}.jpg"
+                filename = f"/home/kkymin/Test_Cam/captures/400_reverse_{timestamp}.jpg"
                 
                 cv2.imwrite(filename, frame)  # 프레임을 파일로 저장
                 print(f"Frame captured and saved as {filename}")
