@@ -1,7 +1,14 @@
-kkymin@raspberrypi:~ $  /usr/bin/env /bin/python /home/kkymin/.vscode/extensions/ms-python.debugpy-2024.10.0-linux-armhf/bundled/libs/debugpy/adapter/../../debugpy/launcher 59211 -- /home/kkymin/Test_Cam/Test_Cam_v2.py 
-[ WARN:0@0.531] global cap_gstreamer.cpp:2784 handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module v4l2src0 reported: Cannot identify device '/dev/video2'.
-[ WARN:0@0.531] global cap_gstreamer.cpp:1679 open OpenCV | GStreamer warning: unable to start pipeline
-[ WARN:0@0.531] global cap_gstreamer.cpp:1164 isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created
-[ WARN:0@0.534] global cap_v4l.cpp:982 open VIDEOIO(V4L2:/dev/video2): can't open camera by index
-[ERROR:0@0.553] global obsensor_uvc_stream_channel.cpp:156 getStreamChannelGroup Camera index out of range
-카메라를 열 수 없습니다.
+* Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+192.168.50.71 - - [03/Oct/2024 21:10:51] "GET /video_feed HTTP/1.1" 500 -
+Error on request:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 323, in run_wsgi
+    execute(self.server.app)
+  File "/usr/lib/python3/dist-packages/werkzeug/serving.py", line 314, in execute
+    for data in application_iter:
+  File "/usr/lib/python3/dist-packages/werkzeug/wsgi.py", line 506, in __next__
+    return self._next()
+  File "/usr/lib/python3/dist-packages/werkzeug/wrappers/base_response.py", line 45, in _iter_encoded
+    for item in iterable:
+  File "/home/kkymin/Test_Cam/Test_Cam_v2.py", line 66, in gen_frames
+    if capture_forward_400:  # 'stop' 명령을 받으면 프레임을 캡처
