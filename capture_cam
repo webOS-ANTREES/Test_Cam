@@ -3,6 +3,7 @@ from flask_cors import CORS
 import cv2
 import paho.mqtt.client as mqtt
 import time
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -10,18 +11,30 @@ CORS(app)
 camera = cv2.VideoCapture(0)  # use 0 for web camera
 
 # MQTT 설정
-broker = 'your_mqtt_broker_ip'  # 브로커 주소
+broker = '172.20.48.180'  # 브로커 주소
 port = 1883  # 브로커 포트 (기본 1883)
-topic = 'your_topic/stop'  # 수신할 토픽
+topic = 'robot/location'  # 수신할 토픽
 
 # 화면 캡처를 위한 플래그
-capture_frame = False
+capture_forward_150 = False
+capture_forward_400 = False
+capture_reverse_150 = False
+capture_reverse_400 = False
 
 def on_message(client, userdata, msg):
-    global capture_frame
-    if msg.topic == topic and msg.payload.decode() == "stop":
+    global capture_forward_150, capture_forward_400, capture_reverse_150, capture_reverse_400
+    if msg.topic == topic and msg.payload.decode() == "stop_forward_150":
         print("Stop command received, capturing frame...")
-        capture_frame = True
+        capture_forward_150 = True
+    elif msg.topic == topic and msg.payload.decode() == "stop_forward_400":
+        print("Stop command received, capturing frame...")
+        capture_forward_400 = True
+    elif msg.topic == topic and msg.payload.decode() == "stop_reverse_150":
+        print("Stop command received, capturing frame...")
+        capture_reverse_150 = True
+    elif msg.topic == topic and msg.payload.decode() == "stop_reverse_400":
+        print("Stop command received, capturing frame...")
+        capture_reverse_400 = True
 
 # MQTT 클라이언트 생성 및 콜백 함수 설정
 mqtt_client = mqtt.Client()
@@ -33,7 +46,9 @@ mqtt_client.subscribe(topic)
 mqtt_client.loop_start()
 
 def gen_frames():
-    global capture_frame
+    global capture_forward_150
+    if not os.path.exists('/home/kkymin/Test_Cam/captures'):
+                    os.makedirs('/home/kkymin/Test_Cam/captures')
     while True:
         for _ in range(1):
             camera.grab()
@@ -41,12 +56,34 @@ def gen_frames():
         if not success:
             break
         else:
-            if capture_frame:  # 'stop' 명령을 받으면 프레임을 캡처
+            if capture_forward_150:  # 'stop' 명령을 받으면 프레임을 캡처
                 timestamp = time.strftime("%Y%m%d-%H%M%S")
-                filename = f"capture_{timestamp}.jpg"
+                filename = f"/home/kkymin/Test_Cam/captures/150_forward_{timestamp}.jpg"
                 cv2.imwrite(filename, frame)  # 프레임을 파일로 저장
                 print(f"Frame captured and saved as {filename}")
-                capture_frame = False  # 플래그 초기화
+                capture_forward_150 = False  # 플래그 초기화
+
+            if capture_forward_400:  # 'stop' 명령을 받으면 프레임을 캡처
+                timestamp = time.strftime("%Y%m%d-%H%M%S")
+                filename = f"/home/kkymin/Test_Cam/captures/400_forward_{timestamp}.jpg"
+                cv2.imwrite(filename, frame)  # 프레임을 파일로 저장
+                print(f"Frame captured and saved as {filename}")
+                capture_forward_400 = False  # 플래그 초기화
+
+            if capture_reverse_150:  # 'stop' 명령을 받으면 프레임을 캡처
+                timestamp = time.strftime("%Y%m%d-%H%M%S")
+                filename = f"/home/kkymin/Test_Cam/captures/150_reverse_{timestamp}.jpg"
+                cv2.imwrite(filename, frame)  # 프레임을 파일로 저장
+                print(f"Frame captured and saved as {filename}")
+                capture_reverse_150 = False  # 플래그 초기화
+                
+            if capture_reverse_400:  # 'stop' 명령을 받으면 프레임을 캡처
+                timestamp = time.strftime("%Y%m%d-%H%M%S")
+                filename = f"/home/kkymin/Test_Cam/captures/400_reverse{timestamp}.jpg"
+                
+                cv2.imwrite(filename, frame)  # 프레임을 파일로 저장
+                print(f"Frame captured and saved as {filename}")
+                capture_reverse_400 = False  # 플래그 초기화
 
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
